@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Requests\Api\Course;
+
+use App\Http\Requests\Api\ApiRequest;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Validation\Rule;
+
+class PurchasedListRequest extends ApiRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'page' => ['nullable', 'integer', 'gt:0'],
+            'itemsPerPage' => ['nullable', 'integer', 'gt:0', Rule::in(Config::get('subsystem.availableItemsPerPage'))],
+        ];
+    }
+}

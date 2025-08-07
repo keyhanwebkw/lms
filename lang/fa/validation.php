@@ -1,0 +1,91 @@
+<?php
+
+return [
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Validation Attributes
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used to swap our attribute placeholder
+    | with something more reader friendly such as "E-Mail Address" instead
+    | of "email". This simply helps us make our message more expressive.
+    |
+    */
+
+    'attributes' => [
+        'username' => 'نام کاربری',
+        'childID' => 'شناسه کودک',
+        'title' => 'عنوان',
+        'slug' => 'نامک',
+        'description' => 'توضیحات',
+        'sortOrder' => 'ترتیب نمایش',
+        'photo' => 'تصویر',
+        'metaTitle' => 'عنوان متا',
+        'metaDescription' => 'توضیحات متا',
+        'metaKeyword' => 'کلمات کلیدی مت',
+        'status' => 'وضعیت',
+        'parentID' => 'شناسه والد',
+        'name' => 'نام',
+        'family' => 'نام‌خانوادگی',
+        'mobile' => 'موبایل',
+        'nationalCode' => 'کد ملی',
+        'birthDate' => 'تاریخ تولد',
+        'password' => 'رمز عبور',
+        'gender' => 'جنسیت',
+        'courseName' => 'نام دوره',
+        'duration' => 'مدت زمان',
+        'type' => 'نوع',
+        'price' => 'قیمت',
+        'discountAmount' => 'مقدار تخفیف',
+        'participantLimitation' => 'محدودیت تعداد شرکت‌کنندگان',
+        'level' => 'سطح',
+        'startDate' => 'تاریخ شروع',
+        'endDate' => 'تاریخ پایان',
+        'courseCategories' => 'دسته‌بندی دوره',
+        'content' => 'محتوا',
+        'banner' => 'بنر',
+        'introVideo' => 'ویدیو معرفی',
+        'startEducationDate' => 'تاریخ شروع تحصیل',
+        'startTeachingDate' => 'تاریخ شروع تحصیل',
+        'coursesCount' => 'تعداد دوره‌ها',
+        'attendeesCount' => 'تعداد شرکت کنندگان',
+        'linkedinProfile' => 'صفحه لینکدین',
+        'telegramUsername' => 'نام کاربری تلگرام',
+        'rating' => 'امتیاز',
+        'website' => 'وب سایت',
+        'biography' => 'زندگی‌نامه',
+        'email' => 'ایمیل',
+        'avatar' => 'آواتار',
+        'categorySlug' => 'دسته بندی',
+        'categoryID' => 'دسته بندی',
+        'sort' => 'مرتب سازی',
+        'page' => 'صفحه',
+        'itemsPerPage' => 'آیتم ها در صفحه',
+        'question' => 'سوال',
+        'answers' => 'پاسخ',
+        'timeLimit' => 'محدودیت زمان',
+        'correct' => 'پاسخ درست',
+        'teacherID' => 'شناسه معلم',
+        'startTime' => 'زمان شروع',
+        'endTime' => 'زمان پایان',
+        'minScoreToPass' => 'حداقل امتیاز برای قبولی',
+        'retryAttempts' => 'تعداد تلاش‌های مجدد',
+        'introduction' => 'مقدمه',
+        'poster' => 'پوستر',
+        'readingTime' => 'زمان مطالعه',
+        'articleCategories' => 'دسته‌بندی مقاله',
+        'isMandatory' => 'اجباری',
+        'score' => 'امتیاز',
+        'parentType' => 'نوع والد',
+        'answer' => 'پاسخ',
+        'managerResponse' => 'بازخورد تکلیف',
+        'receivedScore' => 'امتیاز تکلیف',
+        'courseID' => 'دوره',
+        'productID' => 'محصول',
+        'movieCategories' => 'دسته‌بندی فیلم',
+        'videoSID' => 'شناسه ویدیو',
+        'videoUrl' => 'آدرس ویدیو',
+        'removeType' => 'نوع حذف',
+    ],
+
+];
