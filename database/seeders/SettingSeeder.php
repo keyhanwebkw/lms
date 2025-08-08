@@ -39,11 +39,11 @@ class SettingSeeder extends Seeder
                 'updated' => $now,
             ],
             [
-                'key' => 'homeQuickAccesses',
+                'key' => 'homeContent',
                 'value' => null,
                 'type' => 'json',
                 'relatedTo' => 'indexPage',
-                'limit' => '4',
+                'limit' => '6',
                 'updated' => $now,
             ],
         ];

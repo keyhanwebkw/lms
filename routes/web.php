@@ -177,11 +177,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
                 'admin.setting.indexPage.homeBanners.set'
             );
             // Quick accesses
-            Route::get('/quickAccesses/show', [SettingController::class, 'quickAccessesShow'])->name(
-                'admin.setting.indexPage.homeQuickAccesses.show'
+            Route::get('/homeContent/show', [SettingController::class, 'homeContent'])->name(
+                'admin.setting.indexPage.homeContent.show'
             );
-            Route::post('/quickAccesses/set', [SettingController::class, 'quickAccessesSet'])->name(
-                'admin.setting.indexPage.homeQuickAccesses.set'
+            Route::post('/homeContent/set', [SettingController::class, 'homeContentSet'])->name(
+                'admin.setting.indexPage.homeContent.set'
             );
             // Latest articles
             Route::get('/latestArticles/show', [SettingController::class, 'latestArticlesShow'])->name(

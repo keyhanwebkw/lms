@@ -364,4 +364,5 @@ return [
     'Notif - Assignment - accepted content' => ':name عزیز٬ تبریک میگویم. تکلیف شما در :title پذیرفته شد.',
     'Notif - Assignment - rejected title' => 'تکلیفتان پذیرفته نشد!',
     'Notif - Assignment - rejected content' => ':name عزیز٬ متأسفانه تکلیف شما در :title پذیرفته نشد. به امید موفقیت در تلاش بعدی‌ات.',
+    'homeContent' => 'محتوا صفحه',
 ];

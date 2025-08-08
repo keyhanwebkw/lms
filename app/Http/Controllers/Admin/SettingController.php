@@ -160,10 +160,10 @@ class SettingController extends Controller
         return redirect()->route('admin.setting.indexPage')->with('success', st('Operation done successfully'));
     }
 
-    public function quickAccessesShow()
+    public function homeContent()
     {
         $settings = Setting::query()
-            ->where('key', 'homeQuickAccesses')
+            ->where('key', 'homeContent')
             ->first();
         $values = array_pad($settings->value, $settings->limit, null);
 
@@ -176,10 +176,10 @@ class SettingController extends Controller
         }
         unset($value);
 
-        return view('admin.setting.quickAccesses', compact('settings', 'values'));
+        return view('admin.setting.homeContent', compact('settings', 'values'));
     }
 
-    public function quickAccessesSet(QuickAccessesRequest $request)
+    public function homeContentSet(QuickAccessesRequest $request)
     {
         $data = $request->validated();
         $quickAccesses = $data['quickAccesses'];

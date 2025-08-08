@@ -338,4 +338,5 @@ return [
     'Notif - Assignment - accepted content' => 'Dear :name, congratulations. your :title assignment has accepted.',
     'Notif - Assignment - rejected title' => 'Assignment rejected!',
     'Notif - Assignment - rejected content' => 'Dear :name, Unfortunately, your assignment was not accepted at :title. Wishing you success in your next attempt.',
+    'homeContent' => 'Home content',
 ];

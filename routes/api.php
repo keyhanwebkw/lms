@@ -12,6 +12,19 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('/course')->controller(CourseController::class)->group(function () {
+    Route::post('/category/list', 'categoryList')->name('course.category.list');
+    Route::post('/list', 'list')->name('course.list');
+    Route::post('/get', 'get')->name('course.get');
+    Route::post('/related', 'related')->name('course.related');
+    Route::post('/episode/get', 'episodeGet')->name('course.episode.get');
+    Route::post('/episode/content', 'episodeContent')->name('course.episode.content');
+});
+
+Route::prefix('/setting')->controller(SettingController::class)->group(function () {
+    Route::post('/indexPage', 'indexPage')->name('setting.indexPage');
+});
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/user')->controller(UserController::class)->group(function () {
         Route::prefix('/profile')->group(function () {
@@ -19,32 +32,26 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/get', 'getProfile')->name('user.profile.get');
             Route::post('/update', 'updateProfile')->name('user.profile.update');
         });
-        Route::prefix('/child')->group(function () {
-            Route::post('/create', 'createChild')->name('user.child.create');
-            Route::post('/list', 'listChild')->name('user.child.list');
-            Route::post('/get', 'getChild')->name('user.child.get');
-            Route::post('/delete', 'deleteChild')->name('user.child.delete');
-            Route::post('/update', 'updateChild')->name('user.child.update');
-        });
-        Route::post('/switch/child', 'switchChild')->name('user.switch.Child');
-    });
-    Route::prefix('/support')->controller(SupportController::class)->group(function () {
-        Route::post('/departments', 'departments')->name('support.departments');
-        Route::post('/tickets', 'tickets')->name('support.tickets');
-        Route::post('/tickets/send', 'send')->name('support.send');
-        Route::post('/tickets/reply', 'reply')->name('support.reply');
-        Route::post('/tickets/get', 'get')->name('support.get');
-        Route::post('/tickets/close', 'close')->name('support.close');
+//        Route::prefix('/child')->group(function () {
+//            Route::post('/create', 'createChild')->name('user.child.create');
+//            Route::post('/list', 'listChild')->name('user.child.list');
+//            Route::post('/get', 'getChild')->name('user.child.get');
+//            Route::post('/delete', 'deleteChild')->name('user.child.delete');
+//            Route::post('/update', 'updateChild')->name('user.child.update');
+//        });
+//        Route::post('/switch/child', 'switchChild')->name('user.switch.Child');
+//    });
+//    Route::prefix('/support')->controller(SupportController::class)->group(function () {
+//        Route::post('/departments', 'departments')->name('support.departments');
+//        Route::post('/tickets', 'tickets')->name('support.tickets');
+//        Route::post('/tickets/send', 'send')->name('support.send');
+//        Route::post('/tickets/reply', 'reply')->name('support.reply');
+//        Route::post('/tickets/get', 'get')->name('support.get');
+//        Route::post('/tickets/close', 'close')->name('support.close');
     });
     Route::prefix('/course')->controller(CourseController::class)->group(function () {
-        Route::post('/category/list', 'categoryList')->name('course.category.list');
-        Route::post('/list', 'list')->name('course.list');
-        Route::post('/get', 'get')->name('course.get');
-        Route::post('/related', 'related')->name('course.related');
-        Route::post('/episode/get', 'episodeGet')->name('course.episode.get');
-        Route::post('/episode/content', 'episodeContent')->name('course.episode.content');
-        Route::post('/joinFree',  'joinFree')->name('course.joinFree');
-        Route::post('/list/purchased',  'listPurchased')->name('course.list.purchased');
+        Route::post('/joinFree', 'joinFree')->name('course.joinFree');
+        Route::post('/list/purchased', 'listPurchased')->name('course.list.purchased');
     });
     Route::prefix('/exam')->controller(ExamController::class)->group(function () {
         Route::post('/get', 'get')->name('exam.get');
@@ -66,9 +73,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/receive', 'receive')->name('assignment.receive');
         Route::post('/send', 'send')->name('assignment.send');
     });
-    Route::prefix('/setting')->controller(SettingController::class)->group(function () {
-        Route::post('/indexPage', 'indexPage')->name('setting.indexPage');
-    });
 
     Route::prefix('order')->controller(OrderController::class)->group(function () {
         Route::post('/item/add', 'itemAdd')->name('order.item.add');
@@ -77,10 +81,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::prefix('/cinema')->controller(CinemaController::class)->group(function () {
-    Route::post('/index', 'index')->name('cinema.index');
-});
+//Route::prefix('/cinema')->controller(CinemaController::class)->group(function () {
+//    Route::post('/index', 'index')->name('cinema.index');
+//});
 
-Route::middleware('auth:children')->group(function () {
-    //
-});
+//Route::middleware('auth:children')->group(function () {
+//    //
+//});
+
