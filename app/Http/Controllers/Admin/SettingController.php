@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\Setting\HomeBannersRequest;
+use App\Http\Requests\Admin\Setting\HomePageContentRequest;
 use App\Http\Requests\Admin\Setting\LatestArticlesRequest;
 use App\Http\Requests\Admin\Setting\LatestCoursesRequest;
-use App\Http\Requests\Admin\Setting\QuickAccessesRequest;
 use App\Models\Course;
 use App\Models\Setting;
 use Hekmatinasser\Verta\Verta;
@@ -75,7 +75,7 @@ class SettingController extends Controller
                 try {
                     $homeBanners[$index]['startDisplayDate'] = Verta::parse($banner['startDisplayDate'])->timestamp;
                     $homeBanners[$index]['endDisplayDate'] = Verta::parse($banner['endDisplayDate'])->timestamp;
-                } catch (InvalidDatetimeException $e){
+                } catch (InvalidDatetimeException $e) {
                     return back()->withErrors(st('Time conversion error') . ' - ' . st('Segment', ['number' => $index + 1]));
                 }
             }
@@ -165,13 +165,14 @@ class SettingController extends Controller
         $settings = Setting::query()
             ->where('key', 'homeContent')
             ->first();
+
         $values = array_pad($settings->value, $settings->limit, null);
 
-        foreach ($values as &$value) {
-            if (isset($value['iconSID'])) {
-                $storage = Storage::findBySID($value['iconSID']);
+        foreach (['firstImageSID', 'sideImageSID', 'introVideoSID'] as $key) {
+            if (!empty($values[$key])) {
+                $storage = Storage::findBySID($values[$key]);
                 $iconUrl = Storage::getStorageUrl($storage);
-                $value['iconUrl'] = $iconUrl;
+                $values['url-' . $key] = $iconUrl;
             }
         }
         unset($value);
@@ -179,34 +180,50 @@ class SettingController extends Controller
         return view('admin.setting.homeContent', compact('settings', 'values'));
     }
 
-    public function homeContentSet(QuickAccessesRequest $request)
+    public function homeContentSet(HomePageContentRequest $request)
     {
         $data = $request->validated();
-        $quickAccesses = $data['quickAccesses'];
 
         $setting = Setting::query()
-            ->where('key', 'homeQuickAccesses')
-            ->first();
+            ->where('key', 'homeContent')
+            ->firstOrFail();
 
-        foreach ($data['quickAccesses'] as $index => $item) {
-            if (isset($item['icon'])) {
-                $storage = Storage::uploadFile(['file' => $item['icon'], 'type' => 'image']);
-                $storage->used($setting, true);
-                if (isset($quickAccesses[$index]['iconSID'])) {
-                    Storage::deleteBySID($quickAccesses[$index]['iconSID']);
-                }
-
-                $quickAccesses[$index]['iconSID'] = $storage->SID;
-                unset($quickAccesses[$index]['icon']);
+        if (!empty($data['firstImage'])) {
+            $storage = Storage::uploadFile(['file' => $data['firstImage'], 'type' => 'image']);
+            $storage->used($setting, true);
+            if (!empty($data['firstImageSID'])) {
+                Storage::deleteBySID($data['firstImageSID']);
             }
+            $data['firstImageSID'] = $storage->SID;
         }
+        unset($data['firstImage']);
 
-        $value = array_pad($quickAccesses, $setting->limit, []);
-        $value = json_encode($value, JSON_UNESCAPED_UNICODE);
-        $setting->value = $value;
+        if (!empty($data['sideImage'])) {
+            $storage = Storage::uploadFile(['file' => $data['sideImage'], 'type' => 'image']);
+            $storage->used($setting, true);
+            if (!empty($data['sideImageSID'])) {
+                Storage::deleteBySID($data['sideImageSID']);
+            }
+            $data['sideImageSID'] = $storage->SID;
+        }
+        unset($data['sideImage']);
+
+        if (isset($data['introVideo']) && $data['introVideo']) {
+            $storage = Storage::uploadFile(['file' => $data['introVideo'], 'type' => 'video']);
+            $storage->used($setting, true);
+            if (!empty($data['introVideoSID'])) {
+                Storage::deleteBySID($data['introVideoSID']);
+            }
+            $data['introVideoSID'] = $storage->SID;
+        }
+        unset($data['introVideo']);
+
+        $setting->value = json_encode($data, JSON_UNESCAPED_UNICODE);
         $setting->updated = time();
         $setting->save();
 
-        return redirect()->route('admin.setting.indexPage')->with('success', st('Operation done successfully'));
+        return redirect()
+            ->route('admin.setting.indexPage')
+            ->with('success', st('Operation done successfully'));
     }
 }

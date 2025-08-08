@@ -1,24 +1,6 @@
 <?php
 
 return [
-    'Managers' => [
-        'icon' => 'fa fa-users',
-        'child' => [
-            'Managers list' => [
-                'routeName' => 'admin.manager.list',
-                'active' => [
-                    'admin.manager.list',
-                    'admin.manager.edit',
-                ],
-            ],
-            'Add manager' => [
-                'routeName' => 'admin.manager.create',
-                'active' => [
-                    'admin.manager.create',
-                ],
-            ],
-        ],
-    ],
     'Users' => [
         'icon' => 'fa fa-user',
         'routeName' => 'admin.user.parent.list',
@@ -118,6 +100,24 @@ return [
         'child' => [
         ]
     ],
+    'Managers' => [
+        'icon' => 'fa fa-users',
+        'child' => [
+            'Managers list' => [
+                'routeName' => 'admin.manager.list',
+                'active' => [
+                    'admin.manager.list',
+                    'admin.manager.edit',
+                ],
+            ],
+            'Add manager' => [
+                'routeName' => 'admin.manager.create',
+                'active' => [
+                    'admin.manager.create',
+                ],
+            ],
+        ],
+    ],
     'Settings' => [
         'icon' => 'fa fa-gears',
         'child' => [
@@ -125,6 +125,10 @@ return [
                 'routeName' => 'admin.setting.indexPage',
                 'active' => [
                     'admin.setting.indexPage',
+                    'admin.setting.indexPage.homeBanners.show',
+                    'admin.setting.indexPage.homeContent.show',
+                    'admin.setting.indexPage.homeLatestArticles.show',
+                    'admin.setting.indexPage.homeLatestCourses.show',
                 ]
             ],
         ]

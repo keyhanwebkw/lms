@@ -27,20 +27,6 @@ class SettingController extends Controller
     public function indexPage()
     {
         $now = time();
-
-        // User balance, score and last logged child
-        $user = Auth::user();
-        $lastLoggedChild = User::query()
-            ->select(
-                'ID',
-                'name',
-            )
-            ->where('type', UserTypes::Child->value)
-            ->where('status', UserStatus::Active->value)
-            ->where('parentID', $user->ID)
-            ->orderBy('lastActivity')
-            ->first();
-
         // Settings
         $cacheKey = Setting::cacheKey('indexPage');
         $settings = Cache::tags(Setting::cacheTag())->remember($cacheKey, now()->addHours(6), function () {
@@ -50,16 +36,15 @@ class SettingController extends Controller
         });
 
         // Quick access buttons
-        $homeQuickAccesses = $settings->where('key', 'homeQuickAccesses')->first();
-        $homeQuickAccesses = array_filter($homeQuickAccesses->value);
-        // Icon's storage
-        foreach ($homeQuickAccesses as $index => $item) {
-            $storage = Storage::findBySID($item['iconSID']);
-            $storageResource = StorageResource::make($storage);
-            $homeQuickAccesses[$index]['icon'] = $storageResource;
-            unset($homeQuickAccesses[$index]['iconSID']);
+        $homeContents = $settings->where('key', 'homeContent')->first();
+        $homeContents = array_filter($homeContents->value);
+        foreach (['firstImageSID', 'sideImageSID', 'introVideoSID'] as $key) {
+            if (!empty($homeContents[$key])) {
+                $storage = Storage::findBySID($homeContents[$key]);
+                $storageResource = StorageResource::make($storage);
+                $homeContents[$key] = $storageResource;
+            }
         }
-
         // Banners
         $homeBanners = $settings->where('key', 'homeBanners')->first();
         $homeBanners = array_filter($homeBanners->value);
@@ -144,8 +129,7 @@ class SettingController extends Controller
         return $this->success([
             'balance' => $user->balance ?? 0,
             'score' => $user->score ?? 0,
-            'childInfo' => $lastLoggedChild,
-            'quickAccesses' => $homeQuickAccesses,
+            'homeContents' => $homeContents,
             'banners' => $homeBanners,
             'latestArticles' => ArticleSummaryResource::collection($articles),
             'latestCourses' => CourseSummaryResource::collection($courses),

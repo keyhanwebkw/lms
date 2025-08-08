@@ -176,7 +176,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
             Route::post('/banners/set', [SettingController::class, 'homeBannersSet'])->name(
                 'admin.setting.indexPage.homeBanners.set'
             );
-            // Quick accesses
+            // homeContent
             Route::get('/homeContent/show', [SettingController::class, 'homeContent'])->name(
                 'admin.setting.indexPage.homeContent.show'
             );

@@ -365,4 +365,11 @@ return [
     'Notif - Assignment - rejected title' => 'تکلیفتان پذیرفته نشد!',
     'Notif - Assignment - rejected content' => ':name عزیز٬ متأسفانه تکلیف شما در :title پذیرفته نشد. به امید موفقیت در تلاش بعدی‌ات.',
     'homeContent' => 'محتوا صفحه',
+    'homePageContent' => 'محتوای صفحه اصلی',
+    'Main Title' => 'عنوان اصلی',
+    'First Image' => 'عکس اول',
+    'Side Image' => 'عکس کنار توضیحات',
+    'Second Title' => 'عنوان دوم',
+    'Intro Video' => 'ویدیو معرفی',
+    'Return' => 'بازگشت',
 ];

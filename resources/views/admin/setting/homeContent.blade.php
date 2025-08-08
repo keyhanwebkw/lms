@@ -1,61 +1,85 @@
 @extends('subsystem::layouts.app')
 
-@section('pageTitle', st('homeQuickAccesses'))
+@section('pageTitle', st('homePageContent'))
 
 @section('content')
     {!! html()->form('POST', route('admin.setting.indexPage.homeContent.set'))->acceptsFiles()->open() !!}
-    <div class="card">
-        <div class="card-body text-center">
-            <p class=" badge bg-warning text-wrap">{{ st('Multi field setting sets') }}</p>
-            <br>
-            <p class=" badge bg-info text-wrap">{{ st('White color selection error') }}</p>
+
+    {{-- کارت 1 - عنوان --}}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">{{ st('Main Title') }}</h5>
         </div>
-    </div>
-    @foreach($values as $index => $value)
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center control-label">{{ st('Segment', ['number' => $index + 1]) }}</h5>
-                <hr>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            {{ html()->label(st('Title') . ' *', "quickAccesses[$index][title]")->class('control-label') }}
-                            {{ html()->text("quickAccesses[$index][title]", $value['title'] ?? '')->class('form-control')->placeholder(st('Title'))}}
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            {{ html()->label(st('Link') . ' *', "quickAccesses[$index][link]")->class('control-label') }}
-                            {{ html()->text("quickAccesses[$index][link]", $value['link'] ?? '')->class('form-control')->placeholder(st('Link'))}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            <x-file-preview name="quickAccesses[{{ $index }}][icon]" label="{{st('Icon')}} *" filePath="{{$value['iconUrl'] ?? ''}}"/>
-                            {{ html()->hidden("quickAccesses[$index][iconSID]", $value['iconSID'] ?? '')}}
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-group">
-                            {{ html()->label(st('Color') . ' *', "quickAccesses[$index][color]")->class('control-label') }}
-                            {{ html()->input('color', "quickAccesses[$index][color]", $value['color'] ?? '#ffffff')->class('form-control')->placeholder(st('Color')) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-    <div class="card">
         <div class="card-body">
-            <div class="text-right mt-2">
-                <div class="btn-group gap-2" role="group">
-                    {{ html()->submit(st('submit'))->class('btn btn-primary') }}
-                    {{ html()->a(route('admin.setting.indexPage'), st('Return'))->class('btn btn-secondary') }}
-                </div>
+            {{ html()->label(st('Title') . ' *', 'title')->class('control-label') }}
+            {{ html()->text('title', $values['title'] ?? '')->class('form-control')->placeholder(st('Title')) }}
+        </div>
+    </div>
+
+    {{-- کارت 2 - عکس اول --}}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">{{ st('First Image') }}</h5>
+        </div>
+        <div class="card-body">
+            <x-file-preview name="firstImage" label="{{ st('First Image') }} *" filePath="{{ $values['url-firstImageSID'] ?? '' }}" />
+            {{ html()->hidden('firstImageSID', $values['firstImageSID'] ?? '') }}
+        </div>
+    </div>
+
+    {{-- کارت 3 - توضیحات --}}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">{{ st('Description') }}</h5>
+        </div>
+        <div class="card-body">
+            {{ html()->label(st('Description') . ' *', 'description')->class('control-label') }}
+            {{ html()->textarea('description', $values['description'] ?? '')->class('form-control')->placeholder(st('Description'))->rows(4) }}
+        </div>
+    </div>
+
+    {{-- کارت 4 - عکس کنار توضیحات --}}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">{{ st('Side Image') }}</h5>
+        </div>
+        <div class="card-body">
+            <x-file-preview name="sideImage" label="{{ st('Side Image') }} *" filePath="{{ $values['url-sideImageSID'] ?? '' }}" />
+            {{ html()->hidden('sideImageSID', $values['sideImageSID'] ?? '') }}
+        </div>
+    </div>
+
+    {{-- کارت 5 - عنوان دوم --}}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">{{ st('Second Title') }}</h5>
+        </div>
+        <div class="card-body">
+            {{ html()->label(st('Second Title') . ' *', 'secondTitle')->class('control-label') }}
+            {{ html()->text('secondTitle', $values['secondTitle'] ?? '')->class('form-control')->placeholder(st('Second Title')) }}
+        </div>
+    </div>
+
+    {{-- کارت 6 - ویدیو معرفی --}}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">{{ st('Intro Video') }}</h5>
+        </div>
+        <div class="card-body">
+            <x-file-preview name="introVideo" label="{{ st('Intro Video') }} *" filePath="{{ $values['url-introVideoSID'] ?? '' }}" />
+            {{ html()->hidden('introVideoSID', $values['introVideoSID'] ?? '') }}
+        </div>
+    </div>
+
+    {{-- دکمه‌ها --}}
+    <div class="card">
+        <div class="card-body text-right">
+            <div class="btn-group gap-2" role="group">
+                {{ html()->submit(st('Submit'))->class('btn btn-primary') }}
+                {{ html()->a(route('admin.setting.indexPage'), st('Return'))->class('btn btn-secondary') }}
             </div>
         </div>
     </div>
+
     {!! html()->form()->close() !!}
 @endsection
