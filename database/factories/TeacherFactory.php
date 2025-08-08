@@ -32,7 +32,7 @@ class TeacherFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'mobile' => '+98936' . (string)random_int(1000000, 9999999),
             'biography' => $this->faker->paragraph(7),
-            'avatarSID' => $this->faker->randomElement($avatarSIDs),
+//            'avatarSID' => $this->faker->randomElement($avatarSIDs),
             'status' => $this->faker->randomElement(TeacherStatus::values()),
             'birthDate' => $this->faker->dateTimeBetween('-50 years', '-30 years')->getTimestamp(),
             'startEducationDate' => $this->faker->dateTimeBetween('-20 years', '-10 years')->getTimestamp(),

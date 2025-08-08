@@ -85,27 +85,27 @@ return [
         'child' => [
         ]
     ],
-    'Cinema' => [
-        'icon' => 'fa fa-film',
-        'child' => [
-            'Movies' => [
-                'routeName' => 'admin.cg.movie.list',
-                'active' => [
-                    'admin.cg.movie.list',
-                    'admin.cg.movie.create',
-                    'admin.cg.movie.edit',
-                ]
-            ],
-            'Movie Categories' => [
-                'routeName' => 'admin.cg.movieCategory.list',
-                'active' => [
-                    'admin.cg.movieCategory.list',
-                    'admin.cg.movieCategory.create',
-                    'admin.cg.movieCategory.edit',
-                ]
-            ],
-        ]
-    ],
+//    'Cinema' => [
+//        'icon' => 'fa fa-film',
+//        'child' => [
+//            'Movies' => [
+//                'routeName' => 'admin.cg.movie.list',
+//                'active' => [
+//                    'admin.cg.movie.list',
+//                    'admin.cg.movie.create',
+//                    'admin.cg.movie.edit',
+//                ]
+//            ],
+//            'Movie Categories' => [
+//                'routeName' => 'admin.cg.movieCategory.list',
+//                'active' => [
+//                    'admin.cg.movieCategory.list',
+//                    'admin.cg.movieCategory.create',
+//                    'admin.cg.movieCategory.edit',
+//                ]
+//            ],
+//        ]
+//    ],
     'Faq' => [
         'icon' => 'fa fa-comment',
         'routeName' => 'admin.faq.list',

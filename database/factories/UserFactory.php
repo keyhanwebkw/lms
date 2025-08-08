@@ -36,7 +36,7 @@ class UserFactory extends Factory
         return [
             'name' => $this->faker->firstName(),
             'gender' => $this->faker->randomElement(Gender::values()),
-            'avatarSID' => $this->faker->randomElement($avatarSIDs),
+//            'avatarSID' => $this->faker->randomElement($avatarSIDs),
             'nationalCode' => random_int(1234567890, 9876543210),
             'status' => UserStatus::Active->value,
             'registerDate' => time(),

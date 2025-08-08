@@ -63,9 +63,9 @@ class ParentDatatable extends DataTable
             ->editColumn('status', function ($model) {
                 return UserStatus::valuesTranslate()[$model->status] ?? '-';
             })
-            ->addColumn('children', function ($model) {
-                return $this->childrenAction($model);
-            })
+//            ->addColumn('children', function ($model) {
+//                return $this->childrenAction($model);
+//            })
             ->addColumn('show', function ($model) {
                 return $this->actionShow(route('admin.user.parent.show', $model->ID));
             })
@@ -105,16 +105,16 @@ class ParentDatatable extends DataTable
             ->where('type', UserTypes::Parent->value);
     }
 
-    public function childrenAction($model): string
-    {
-        return $model->childrenCount ? '<div>
-            <a class="btn btn-sm btn-info" href="' . route('admin.user.child.list') . '?parentID=' . $model->ID . '" ' . '>
-                <i class="far fa-users"></i>&nbsp ' . st('Children') . ' - ' . $model->childrenCount . '</a>
-        </div>' : '<div>
-            <button class="btn btn-sm btn-info"' . ' disabled' . '>
-                <i class="far fa-users"></i>&nbsp ' . st('No child') . '</button>
-        </div>';
-    }
+//    public function childrenAction($model): string
+//    {
+//        return $model->childrenCount ? '<div>
+//            <a class="btn btn-sm btn-info" href="' . route('admin.user.child.list') . '?parentID=' . $model->ID . '" ' . '>
+//                <i class="far fa-users"></i>&nbsp ' . st('Children') . ' - ' . $model->childrenCount . '</a>
+//        </div>' : '<div>
+//            <button class="btn btn-sm btn-info"' . ' disabled' . '>
+//                <i class="far fa-users"></i>&nbsp ' . st('No child') . '</button>
+//        </div>';
+//    }
 
     /**
      * Get the dataTable columns definition.
@@ -130,7 +130,7 @@ class ParentDatatable extends DataTable
             Column::make('nationalCode')->title(st('National code'))->orderable(false),
             Column::make('balance')->title(st('Balance'))->orderable(false),
             Column::make('status')->title(st('Status'))->orderable(false),
-            Column::make('children')->title(st('Children'))->orderable(false),
+//            Column::make('children')->title(st('Children'))->orderable(false),
             Column::make('show')->title(st('Show'))->orderable(false),
             Column::make('edit')->title(st('Edit'))->orderable(false),
             Column::make('delete')->title(st('Delete'))->orderable(false),
