@@ -61,23 +61,23 @@ class UserSeeder extends Seeder
                 'gender' => 'male',
                 'nationalCode' => '1234567890',
                 'birthDate' => 631152000, // example timestamp for 1990-01-01
-                'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
+//                'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
                 'status' => UserStatus::Active->value,
                 'username' => 'amir',
                 'registerDate' => time(),
                 'lastActivity' => time(),
-                'child' => [
-                    'name' => 'child',
-                    'gender' => 'male',
-                    'nationalCode' => '1234567890',
-                    'birthDate' => 631152000, // example timestamp for 1990-01-01
-                    'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
-                    'status' => UserStatus::Active->value,
-                    'username' => 'amirChild',
-                    'type' => UserTypes::Child->value,
-                    'registerDate' => time(),
-                    'lastActivity' => time(),
-                ],
+//                'child' => [
+//                    'name' => 'child',
+//                    'gender' => 'male',
+//                    'nationalCode' => '1234567890',
+//                    'birthDate' => 631152000, // example timestamp for 1990-01-01
+//                    'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
+//                    'status' => UserStatus::Active->value,
+//                    'username' => 'amirChild',
+//                    'type' => UserTypes::Child->value,
+//                    'registerDate' => time(),
+//                    'lastActivity' => time(),
+//                ],
             ],
             [
                 'name' => 'Amir',
@@ -88,23 +88,23 @@ class UserSeeder extends Seeder
                 'gender' => 'male',
                 'nationalCode' => '1234567890',
                 'birthDate' => 631152000, // example timestamp for 1990-01-01
-                'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
+//                'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
                 'status' => UserStatus::Active->value,
                 'username' => 'amir',
                 'registerDate' => time(),
                 'lastActivity' => time(),
-                'child' => [
-                    'name' => 'child',
-                    'gender' => 'male',
-                    'nationalCode' => '1234567890',
-                    'birthDate' => 631152000, // example timestamp for 1990-01-01
-                    'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
-                    'status' => UserStatus::Active->value,
-                    'username' => 'amirChild',
-                    'type' => UserTypes::Child->value,
-                    'registerDate' => time(),
-                    'lastActivity' => time(),
-                ],
+//                'child' => [
+//                    'name' => 'child',
+//                    'gender' => 'male',
+//                    'nationalCode' => '1234567890',
+//                    'birthDate' => 631152000, // example timestamp for 1990-01-01
+//                    'avatarSID' => 'dA000000-0000-0000-0000-00000avatar1',
+//                    'status' => UserStatus::Active->value,
+//                    'username' => 'amirChild',
+//                    'type' => UserTypes::Child->value,
+//                    'registerDate' => time(),
+//                    'lastActivity' => time(),
+//                ],
             ],
         ];
     }
