@@ -6,9 +6,11 @@ use App\Http\Requests\Admin\Setting\HomeBannersRequest;
 use App\Http\Requests\Admin\Setting\HomePageContentRequest;
 use App\Http\Requests\Admin\Setting\LatestArticlesRequest;
 use App\Http\Requests\Admin\Setting\LatestCoursesRequest;
+use App\Http\Requests\Admin\Setting\LogoRequest;
 use App\Models\Course;
 use App\Models\Setting;
 use Hekmatinasser\Verta\Verta;
+use Illuminate\Support\Facades\Config;
 use Keyhanweb\Subsystem\Http\Controllers\Web\Controller;
 use Keyhanweb\Subsystem\Models\Article;
 use Keyhanweb\Subsystem\Models\Storage;
@@ -221,6 +223,24 @@ class SettingController extends Controller
         $setting->value = json_encode($data, JSON_UNESCAPED_UNICODE);
         $setting->updated = time();
         $setting->save();
+
+        return redirect()
+            ->route('admin.setting.indexPage')
+            ->with('success', st('Operation done successfully'));
+    }
+
+    public function logo()
+    {
+        $logoUrl = rtrim(Config::get('app.url'), '/') . '/' . 'vendor/subsystem/images/logo.png';
+        return view('admin.setting.logo', compact('logoUrl'));
+    }
+
+    public function logoSet(LogoRequest $request)
+    {
+        $data = $request->validated();
+        $path = base_path('public/vendor/subsystem/images/logo.png');
+        $file = $data['logo'];
+        $file->move(dirname($path), basename($path));
 
         return redirect()
             ->route('admin.setting.indexPage')

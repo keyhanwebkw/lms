@@ -5,7 +5,6 @@
 @section('content')
     {!! html()->form('POST', route('admin.setting.indexPage.homeContent.set'))->acceptsFiles()->open() !!}
 
-    {{-- کارت 1 - عنوان --}}
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">{{ st('Main Title') }}</h5>
@@ -16,18 +15,17 @@
         </div>
     </div>
 
-    {{-- کارت 2 - عکس اول --}}
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">{{ st('First Image') }}</h5>
         </div>
         <div class="card-body">
-            <x-file-preview name="firstImage" label="{{ st('First Image') }} *" filePath="{{ $values['url-firstImageSID'] ?? '' }}" />
+            <x-file-preview name="firstImage" label="{{ st('First Image') }} *"
+                            filePath="{{ $values['url-firstImageSID'] ?? '' }}"/>
             {{ html()->hidden('firstImageSID', $values['firstImageSID'] ?? '') }}
         </div>
     </div>
 
-    {{-- کارت 3 - توضیحات --}}
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">{{ st('Description') }}</h5>
@@ -38,18 +36,17 @@
         </div>
     </div>
 
-    {{-- کارت 4 - عکس کنار توضیحات --}}
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">{{ st('Side Image') }}</h5>
         </div>
         <div class="card-body">
-            <x-file-preview name="sideImage" label="{{ st('Side Image') }} *" filePath="{{ $values['url-sideImageSID'] ?? '' }}" />
+            <x-file-preview name="sideImage" label="{{ st('Side Image') }} *"
+                            filePath="{{ $values['url-sideImageSID'] ?? '' }}"/>
             {{ html()->hidden('sideImageSID', $values['sideImageSID'] ?? '') }}
         </div>
     </div>
 
-    {{-- کارت 5 - عنوان دوم --}}
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">{{ st('Second Title') }}</h5>
@@ -60,18 +57,17 @@
         </div>
     </div>
 
-    {{-- کارت 6 - ویدیو معرفی --}}
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">{{ st('Intro Video') }}</h5>
         </div>
         <div class="card-body">
-            <x-file-preview name="introVideo" label="{{ st('Intro Video') }} *" filePath="{{ $values['url-introVideoSID'] ?? '' }}" />
+            <x-file-preview name="introVideo" label="{{ st('Intro Video') }} *"
+                            filePath="{{ $values['url-introVideoSID'] ?? '' }}"/>
             {{ html()->hidden('introVideoSID', $values['introVideoSID'] ?? '') }}
         </div>
     </div>
 
-    {{-- دکمه‌ها --}}
     <div class="card">
         <div class="card-body text-right">
             <div class="btn-group gap-2" role="group">

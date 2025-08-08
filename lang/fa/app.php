@@ -372,4 +372,5 @@ return [
     'Second Title' => 'عنوان دوم',
     'Intro Video' => 'ویدیو معرفی',
     'Return' => 'بازگشت',
+    'logo' => 'لوگو',
 ];

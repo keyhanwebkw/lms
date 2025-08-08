@@ -86,6 +86,13 @@ return [
         'videoSID' => 'شناسه ویدیو',
         'videoUrl' => 'آدرس ویدیو',
         'removeType' => 'نوع حذف',
+        'firstImage' => 'عکس اول',
+        'firstImageSID' => 'شناسه عکس اول',
+        'sideImage' => 'عکس کنار توضیحات',
+        'sideImageSID' => 'شناسه عکس کنار توضیحات',
+        'secondTitle' => 'عنوان دوم',
+        'introVideoSID' => 'شناسه ویدیو معرفی',
+        'logo' => 'لوگو',
     ],
 
 ];

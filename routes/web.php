@@ -197,6 +197,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
             Route::post('/latestCourses/set', [SettingController::class, 'latestCoursesSet'])->name(
                 'admin.setting.indexPage.homeLatestCourses.set'
             );
+
+            // logo
+            Route::get('/logo/show', [SettingController::class, 'logo'])->name(
+                'admin.setting.logo.show'
+            );
+            Route::post('/logo/set', [SettingController::class, 'logoSet'])->name(
+                'admin.setting.logo.set'
+            );
         });
     });
 

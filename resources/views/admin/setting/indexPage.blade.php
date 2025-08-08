@@ -14,6 +14,11 @@
                     @endforeach
                 </div>
             @endforeach
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    {{ html()->a(route('admin.setting.logo.show'),st('logo'))->class('btn btn-gradient w-100') }}
+                </div>
+            </div>
         </div>
     </div>
 @endsection
