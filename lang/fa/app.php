@@ -24,6 +24,7 @@ return [
         'Cinema' => 'سینما',
         'Movie Categories' => 'دسته‌بندی فیلم‌ها',
         'Movies' => 'فیلم‌ها',
+        'Set key MSGWAY' => 'تنظیم کلید راه‌پیام',
     ],
     'A child with these details is already registered in the system' => 'یک فرزند با این مشخصات قبلاً در سیستم ثبت شده است.',
     'You are not allowed to edit profile information' => 'شما مجاز به ویرایش اطلاعات کاربری نیستید.',

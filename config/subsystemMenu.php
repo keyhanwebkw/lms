@@ -149,6 +149,12 @@ return [
                     'admin.setting.indexPage.homeLatestCourses.show',
                 ]
             ],
+            'Set key MSGWAY' => [
+                'routeName' => 'admin.setting.keyMSGWAY',
+                'active' => [
+                    'admin.setting.keyMSGWAY',
+                ]
+            ],
         ]
     ],
 ];

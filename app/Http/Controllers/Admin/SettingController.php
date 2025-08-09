@@ -10,6 +10,8 @@ use App\Http\Requests\Admin\Setting\LogoRequest;
 use App\Models\Course;
 use App\Models\Setting;
 use Hekmatinasser\Verta\Verta;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Config;
 use Keyhanweb\Subsystem\Http\Controllers\Web\Controller;
 use Keyhanweb\Subsystem\Models\Article;
@@ -244,6 +246,35 @@ class SettingController extends Controller
 
         return redirect()
             ->route('admin.setting.indexPage')
+            ->with('success', st('Operation done successfully'));
+    }
+
+    public function keyMSGWAY()
+    {
+        $key = Config::get('smsService.msgway.key');
+        return view('admin.setting.keyMSGWAY', compact('key'));
+    }
+
+    public function setKeyMSGWAY(Request $request)
+    {
+        $value = trim($request->input('key'));
+        $path = base_path('.env');
+
+        if (File::exists($path)) {
+            $env = File::get($path);
+
+            $pattern = "/^MSGWAY_API_KEY=.*/m";
+            if (preg_match($pattern, $env)) {
+                $env = preg_replace($pattern, "MSGWAY_API_KEY=\"{$value}\"", $env);
+            } else {
+                $env .= "\nMSGWAY_API_KEY=\"{$value}\"";
+            }
+
+            File::put($path, $env);
+        }
+
+        return redirect()
+            ->route('admin.setting.keyMSGWAY')
             ->with('success', st('Operation done successfully'));
     }
 }

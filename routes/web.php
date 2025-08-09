@@ -206,6 +206,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function (
                 'admin.setting.logo.set'
             );
         });
+        Route::get('/keyMSGWAY', [SettingController::class, 'keyMSGWAY'])->name('admin.setting.keyMSGWAY');
+        Route::post('/setKeyMSGWAY', [SettingController::class, 'setKeyMSGWAY'])->name('admin.setting.setKeyMSGWAY');
     });
 
     Route::group(['prefix' => 'cg'], function () {
