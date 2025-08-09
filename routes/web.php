@@ -15,14 +15,16 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\SectionEpisodeController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserAssignmentController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return env('APP_NAME', 'mojahaz');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::group(['prefix' => 'course'], function () {
         Route::get('/list', [CourseController::class, 'list'])->name('admin.course.list');
         Route::get('/create', [CourseController::class, 'create'])->name('admin.course.create');
