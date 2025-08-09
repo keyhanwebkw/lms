@@ -38,5 +38,5 @@
     </div>
 @endsection
 @section('btn')
-    <a href="{{route('admin.user.parent.create')}}" class="btn btn-secondary ml-2">{{st('menu.Add parent')}}</a>
+    <a href="{{route('admin.user.parent.create')}}" class="btn btn-secondary ml-2">{{st('Add user')}}</a>
 @endsection

@@ -5,7 +5,12 @@ return [
         'icon' => 'fa fa-user',
         'routeName' => 'admin.user.parent.list',
         'child' => [
-
+        ],
+        'active' => [
+            'admin.user.parent.list',
+            'admin.user.parent.show',
+            'admin.user.parent.create',
+            'admin.user.parent.edit',
         ],
     ],
     'Courses' => [
@@ -65,7 +70,12 @@ return [
         'icon' => 'fa fa-comment',
         'routeName' => 'admin.comment.list',
         'child' => [
-        ]
+        ],
+        'active' => [
+            'admin.comment.list',
+            'admin.comment.edit',
+            'admin.comment.create',
+        ],
     ],
 //    'Cinema' => [
 //        'icon' => 'fa fa-film',
@@ -92,12 +102,20 @@ return [
         'icon' => 'fa fa-comment',
         'routeName' => 'admin.faq.list',
         'child' => [
+        ],
+        'active' => [
+            'admin.faq.list',
+            'admin.faq.create',
         ]
     ],
     'Roles' => [
         'icon' => 'fa fa-star',
         'routeName' => 'admin.role.list',
         'child' => [
+        ],
+        'active' => [
+            'admin.role.list',
+            'admin.role.create',
         ]
     ],
     'Managers' => [

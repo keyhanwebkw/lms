@@ -136,11 +136,6 @@ class UserController extends Controller
      */
     public function showParent(User $parent)
     {
-        $children = User::query()
-            ->where('parentID', $parent->ID)
-            ->pluck('name')
-            ->implode(', ');
-
         $roleIDs = UserRole::query()
             ->where('userID', $parent->ID)
             ->pluck('roleID')
@@ -153,7 +148,7 @@ class UserController extends Controller
 
         return view(
             'admin.user.parent.show',
-            compact('children', 'parent', 'roles')
+            compact('parent', 'roles')
         );
     }
 

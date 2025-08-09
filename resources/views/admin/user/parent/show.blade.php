@@ -47,18 +47,21 @@
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    {{ html()->label(st('Children') . ':')->class('control-label fw-bold fs-7') }}
-                    {{ html()->span(!empty($children) ? $children : st('No child'))->class('form-control-plaintext fs-6') }}
+                    {{ html()->label(st('Role') . ':')->class('control-label fw-bold fs-7') }}
+                    {{ html()->span($roles ?? '-')->class('form-control-plaintext fs-6') }}
                 </div>
                 <div class="col-md-6 mb-3">
                     {{ html()->label(st('Status') . ':')->class('control-label fw-bold fs-7') }}
                     {{ html()->span(st($parent->status))->class('form-control-plaintext fs-6') }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    {{ html()->label(st('Role') . ':')->class('control-label fw-bold fs-7') }}
-                    {{ html()->span($roles ?? '-')->class('form-control-plaintext fs-6') }}
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="text-right mt-2">
+                <div class="btn-group gap-2" role="group">
+                    {{ html()->a(url()->previous(), st('Return'))->class('btn btn-secondary') }}
                 </div>
             </div>
         </div>
