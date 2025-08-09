@@ -21,7 +21,6 @@ class SetProfileRequest extends ApiRequest
             'nationalCode' => ['nullable', 'validNationalCode'],
             'birthDate' => ['nullable', 'integer', 'ageLimit:15,100'],
             'gender' => ['required', Rule::in(Gender::values())],
-            'avatarSID' => ['nullable', 'string'],
         ];
     }
 }

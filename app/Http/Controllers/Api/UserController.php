@@ -30,14 +30,6 @@ class UserController extends ApiController
         $data = $request->validated();
         $authUser = Auth::user();
 
-        try {
-            $storage = Storage::validate([
-                'SID' => $data['avatarSID'],
-            ]);
-        } catch (\Exception $e) {
-            return $this->error($e->getCode(), $e->getMessage());
-        }
-
         if ($authUser->status != UserStatus::WaitingForSetProfile->value) {
             return $this->error(1, st('You are not allowed to edit profile information'));
         }
@@ -45,10 +37,6 @@ class UserController extends ApiController
         $authUser->fill($data);
         $authUser->status = UserStatus::Active->value;
         $authUser->save();
-
-        if ( !$storage->isPublic) {
-            $storage->used($authUser);
-        }
 
         return $this->success([
             'profile' => UserProfileResource::make($authUser),
