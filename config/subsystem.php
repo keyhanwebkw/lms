@@ -24,7 +24,7 @@ return [
             ],
         ],
         'image' => [
-            'convertToWebp' => true,
+            'convertToWebp' => false,
             'originalConversionQuality' => 90,
             'thumbnailConversionQuality' => 70,
             'thumbnail' => [

@@ -6,68 +6,85 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+
     public function index()
     {
         $now = Carbon::now();
-        [$startToday, $endToday] = [$now->copy()->startOfDay(), $now->copy()->endOfDay()];
-        [$start7, $end7] = [$now->copy()->subDays(6)->startOfDay(), $endToday->copy()];
-        [$start30, $end30] = [$now->copy()->subDays(29)->startOfDay(), $endToday->copy()];
 
-        [$tS, $tE] = [$startToday->timestamp, $endToday->timestamp];
-        [$wS, $wE] = [$start7->timestamp, $end7->timestamp];
-        [$mS, $mE] = [$start30->timestamp, $end30->timestamp];
+        $startToday = $now->copy()->startOfDay();
+        $endToday = $now->copy()->endOfDay();
 
-        $kpiToday = User::whereBetween('registerDate', [$tS, $tE])->count();
-        $kpi7 = User::whereBetween('registerDate', [$wS, $wE])->count();
-        $kpi30 = User::whereBetween('registerDate', [$mS, $mE])->count();
+        $start7d = $now->copy()->subDays(6)->startOfDay();
+        $start30d = $now->copy()->subDays(29)->startOfDay();
 
-        $windows = [5, 15, 60, 240];
-        $nowTs = Carbon::now()->timestamp;
-        $active = [];
-        foreach ($windows as $m) {
-            $threshold = $nowTs - ($m * 60);
-            $active["m{$m}"] = User::where('lastActivity', '>=', $threshold)->count();
-        }
+        $start12m = $now->copy()->startOfMonth()->subMonths(11);
+        $end12m = $now->copy()->endOfMonth()->endOfDay();
 
-        $hourlyLabels = [];
-        $hourlyCounts = [];
-        $end = Carbon::now()->minute(59)->second(59);
-        $start = $end->copy()->subHours(23)->minute(0)->second(0);
+        $start24h = $now->copy()->subHours(23)->minute(0)->second(0);
+        $end24h = $now->copy()->minute(59)->second(59);
 
-        $cursor = $start->copy();
-        while ($cursor->lessThanOrEqualTo($end)) {
-            $slotStart = $cursor->copy()->minute(0)->second(0);
-            $slotEnd = $cursor->copy()->minute(59)->second(59);
-            $sTs = $slotStart->timestamp;
-            $eTs = $slotEnd->timestamp;
+        $users12m = User::query()
+            ->whereNull('deleted')
+            ->whereBetween('registerDate', [$start12m->timestamp, $end12m->timestamp])
+            ->get(['registerDate']);
 
-            $hourlyLabels[] = $slotStart->format('H'); // "00".."23"
-            $hourlyCounts[] = User::whereBetween('lastActivity', [$sTs, $eTs])->count();
-
-            $cursor->addHour();
-        }
+        $kpiToday = $users12m->whereBetween('registerDate', [$startToday->timestamp, $endToday->timestamp])->count();
+        $kpi7 = $users12m->where('registerDate', '>=', $start7d->timestamp)->count();
+        $kpi30 = $users12m->where('registerDate', '>=', $start30d->timestamp)->count();
 
         $monthLabels = [];
         $monthCounts = [];
-        $nowStart = Carbon::now()->startOfMonth();
-        for ($i = 11; $i >= 0; $i--) {
-            $ms = $nowStart->copy()->subMonths($i)->startOfMonth();
-            $me = $ms->copy()->endOfMonth()->endOfDay();
-            $msTs = $ms->timestamp;
-            $meTs = $me->timestamp;
+        $monthKeys = [];
 
-            $monthCounts[] = User::whereBetween('registerDate', [$msTs, $meTs])->count();
-            $monthLabels[] = (new Verta($ms))->format('%B %Y');
+        $cursor = $start12m->copy();
+        for ($i = 0; $i < 12; $i++) {
+            $key = $cursor->format('Y-m');
+            $monthKeys[] = $key;
+            $monthLabels[] = (new Verta($cursor))->format('%B %Y');
+            $monthCounts[] = 0;
+            $cursor->addMonth();
         }
+
+        $users12m->each(function ($u) use (&$monthCounts, $monthKeys) {
+            $ts = (int)$u->registerDate;
+            $ym = Carbon::createFromTimestamp($ts)->format('Y-m');
+            $idx = array_search($ym, $monthKeys, true);
+            if ($idx !== false) $monthCounts[$idx]++;
+        });
+
+        $acts24h = User::query()
+            ->whereNull('deleted')
+            ->whereBetween('lastActivity', [$start24h->timestamp, $end24h->timestamp])
+            ->get(['lastActivity']);
+
+        $hourlyLabels = [];
+        $hourlyCounts = [];
+        $hourKeys = [];
+
+        $hCursor = $start24h->copy();
+        for ($i = 0; $i < 24; $i++) {
+            $key = $hCursor->format('Y-m-d H:00:00');
+            $hourKeys[] = $key;
+            $hourlyLabels[] = $hCursor->format('H'); // 00..23
+            $hourlyCounts[] = 0;
+            $hCursor->addHour();
+        }
+
+        $acts24h->each(function ($u) use (&$hourlyCounts, $hourKeys) {
+            $ts = (int)$u->lastActivity;
+            $slot = Carbon::createFromTimestamp($ts)->minute(0)->second(0)->format('Y-m-d H:00:00');
+            $idx = array_search($slot, $hourKeys, true);
+            if ($idx !== false) $hourlyCounts[$idx]++;
+        });
 
         return view('admin.dashboard', [
             'kpiToday' => $kpiToday,
             'kpi7' => $kpi7,
             'kpi30' => $kpi30,
-            'active' => $active,
             'hourlyLabels' => $hourlyLabels,
             'hourlyCounts' => $hourlyCounts,
             'monthLabels' => $monthLabels,
